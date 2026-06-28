@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TodosService } from '../services/todos';
 import { Todo } from '../model/todo';
-import { catchError } from 'rxjs';
+import { catchError, of } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-todos',
@@ -11,19 +12,17 @@ import { catchError } from 'rxjs';
 })
 export class Todos {
   private todoService = inject(TodosService);
-  protected todoItems = signal<Array<Todo>>([]);
-
-  ngOnInit() {
-    this.todoService.getTodosFromApi()
+  protected todoItems = toSignal(
+    this.todoService
+      .getTodosFromApi()
       .pipe(
         catchError((err) => {
-          console.log(err);
-          throw err;
+          console.error('Ошибка загрузки: ', err);
+          return of([] as Todo[]);
         })
-      )
-    .subscribe((todos) => {
-      this.todoItems.set(todos);
-    })
+      ),
+    {initialValue: []}
+  )
 
-  }
+  ngOnInit() {}
 }
