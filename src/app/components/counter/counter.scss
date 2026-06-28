@@ -1,0 +1,28 @@
+.counter {
+  padding: 5px;
+  margin: 10px 0;
+  border: 1px solid chocolate;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  button {
+    padding: 5px;
+    width: max-content;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+
+    &:active {
+      background-color: lightskyblue;
+      transform: scale(0.95);
+    }
+    &:hover {
+      background-color: chocolate;
+      color: white;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 <div class="home">
   <p>Home component 🏡</p>
   <app-greeting [message]="message()"/>
-  <input type="text" (keyup)="keyUpHandler($event)">
+  <app-counter />
+  <input type="text" placeholder="Type something..." (keyup)="keyUpHandler($event)">
 </div>
