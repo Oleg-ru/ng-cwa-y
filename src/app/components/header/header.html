@@ -1,3 +1,13 @@
 <div class="header">
-  <h1>{{title()}}</h1>
+  <h1 routerLink="/">{{title()}}</h1>
+  <span class="spacer"></span>
+  <nav>
+    <ul class="links-container">
+      @for (link of links; track link.name) {
+        <li class="link-item">
+          <a [routerLink]="link.path"  routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }">{{link.name}}</a>
+        </li>
+      }
+    </ul>
+  </nav>
 </div>
