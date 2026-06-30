@@ -3,9 +3,20 @@
 @if (!todoItems().length) {
   <p>Loading...</p>
 }
+<form>
+  <label>
+    Filter Todos
+    <input name="searchTerm"
+           [(ngModel)]="searchTerm"
+           type="text"
+           placeholder="Search todos..."
+    >
+  </label>
+</form>
 
-<div>
-  @for (todo of todoItems(); track todo.id) {
-    <div>{{todo.title}}</div>
+
+<ul>
+  @for (todo of todoItems() | filterTodos : searchTerm(); track todo.id) {
+    <app-todo-item [todo]="todo" (todoToggle)="toggleCompleted(todo)"/>
   }
-</div>
+</ul>
